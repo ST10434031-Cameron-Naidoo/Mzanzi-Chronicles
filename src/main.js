@@ -1,6 +1,7 @@
 import './style.css'
 import Phaser from 'phaser'
 import GameScene from './scenes/GameScene'
+import MainMenuScene from './scenes/MainMenuScene'
 
 const speedDown=1500
 
@@ -18,7 +19,7 @@ const config={
             debug:true
         }
     },
-    scene:[GameScene]
+    scene:[MainMenuScene,GameScene]
 }
 
 const game=new Phaser.Game(config)
