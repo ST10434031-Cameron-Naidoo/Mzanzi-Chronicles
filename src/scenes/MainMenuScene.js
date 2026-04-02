@@ -31,9 +31,9 @@ export default class MainMenuScene extends Phaser.Scene{
         this.createParticles()
 
         //LAYER 4: Ilifa title 
-        const title=this.add.text(window.innerWidth/2,window.innerHeight*0.52, 'ILIFA',{
+        const title=this.add.text(window.innerWidth/2,window.innerHeight*0.46, 'ILIFA',{
             fontFamily: '"Cinzel", serif',
-            fontSize:   `${window.innerWidth * 0.075}px`,
+            fontSize:   `${window.innerWidth * 0.09}px`,
             color: '#F5A623',
             stroke: '#1a0533',
             strokeThickness: 8,
@@ -44,21 +44,19 @@ export default class MainMenuScene extends Phaser.Scene{
                 blur: 30,
                 fill: true
             }
-        }).setOrigin(0.5)
+        }).setOrigin(0.5).setAlpha(0)
 
         //LAYER 5:ILIFA logo
-        const logo=this.add.image(window.innerWidth/2,window.innerHeight*0.28, 'Ilifa')
+        const logoSize=Math.min(window.innerWidth, window.innerHeight)*0.30
+
+        const logo=this.add.image(window.innerWidth/2,window.innerHeight*0.22, 'Ilifa')
         .setOrigin(0.5)
-        .setAlpha(0)
-
-        const logoSize=Math.min(window.innerWidth,window.innerHeight)*0.22
-
-        logo.setDisplaySize(logoSize,logoSize)
+        .setAlpha(0).setDisplaySize(logoSize,logoSize)
         
         // LAYER 6: Subtitle
-        const subtitle = this.add.text(window.innerWidth / 2, window.innerHeight * 0.59, 'THE GIFT OF THE ANCESTORS', {
+        const subtitle = this.add.text(window.innerWidth / 2, window.innerHeight * 0.58, 'THE GIFT OF THE ANCESTORS', {
         fontFamily: '"Cinzel", serif',
-        fontSize: `${window.innerWidth * 0.016}px`,
+        fontSize: `${window.innerWidth * 0.014}px`,
          color: '#F5A623',
         letterSpacing: 10,
         stroke: '#0a0118',
@@ -75,9 +73,9 @@ export default class MainMenuScene extends Phaser.Scene{
         //LAYER 7: Buttons
         const btnLabels= ['PLAY','SETTINGS','CREDITS','QUIT']
         const startY=window.innerHeight*0.68
-        const gap=window.innerHeight*0.082
-        const btnW=window.innerWidth*0.18
-        const btnH=48
+        const gap=window.innerHeight*0.072
+        const btnW=window.innerWidth*0.14
+        const btnH=44
 
         const buttons = btnLabels.map((label, i) => {
         
