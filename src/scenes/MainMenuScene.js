@@ -12,13 +12,13 @@ export default class MainMenuScene extends Phaser.Scene{
 
     create(){
 
+        //LAYER 1: Base dark background
         //Load Cinzel font
         const link=document.createElement('link')
         link.rel='stylesheet'
         link.href='https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&display=swap'
         document.head.appendChild(link)
 
-        //LAYER 1: Base dark background
         this.add.rectangle(0,0,window.innerHeight,window.innerWidth,0x0a0118).setOrigin(0,0)
 
         //LAYER 2: Menu background
@@ -27,8 +27,10 @@ export default class MainMenuScene extends Phaser.Scene{
         
         background_image.setScale(Math.max(window.innerWidth/background_image.width,window.innerHeight/background_image.height)).setAlpha(0.85)
 
+        //LAYER 3: Ilifa particle pattern
+        this.createParticles()
 
-        //LAYER 3: Ilifa title 
+        //LAYER 4: Ilifa title 
         const title=this.add.text(window.innerWidth/2,window.innerHeight*0.52, 'ILIFA',{
             fontFamily: '"Cinzel", serif',
             fontSize:   `${window.innerWidth * 0.075}px`,
@@ -44,7 +46,7 @@ export default class MainMenuScene extends Phaser.Scene{
             }
         }).setOrigin(0.5)
 
-        //LAYER 4:ILIFA logo
+        //LAYER 5:ILIFA logo
         const logo=this.add.image(window.innerWidth/2,window.innerHeight*0.28, 'Ilifa')
         .setOrigin(0.5)
         .setAlpha(0)
@@ -53,7 +55,7 @@ export default class MainMenuScene extends Phaser.Scene{
 
         logo.setDisplaySize(logoSize,logoSize)
         
-        // LAYER 5: Subtitle
+        // LAYER 6: Subtitle
         const subtitle = this.add.text(window.innerWidth / 2, window.innerHeight * 0.59, 'THE GIFT OF THE ANCESTORS', {
         fontFamily: '"Cinzel", serif',
         fontSize: `${window.innerWidth * 0.016}px`,
@@ -70,7 +72,7 @@ export default class MainMenuScene extends Phaser.Scene{
         }
         }).setOrigin(0.5).setAlpha(0)
         
-        //LAYER 6: Buttons
+        //LAYER 7: Buttons
         const btnLabels= ['PLAY','SETTINGS','CREDITS','QUIT']
         const startY=window.innerHeight*0.68
         const gap=window.innerHeight*0.082
@@ -130,6 +132,7 @@ export default class MainMenuScene extends Phaser.Scene{
 
         })
 
+
          // Fade in
         const blackOverlay = this.add.rectangle(0, 0, window.innerWidth, window.innerHeight, 0x000000)
         .setOrigin(0, 0)
@@ -146,40 +149,93 @@ export default class MainMenuScene extends Phaser.Scene{
             ease: 'Sine.easeInOut'
         })
 
-   this.tweens.add({
-  targets: blackOverlay,
-  alpha: 0,
-  duration: 2000,
-  ease: 'Power2',
-  onComplete: () => {
-    this.tweens.add({
-      targets: logo,
-      alpha: 1,
-      duration: 1000,
-      ease: 'Power2',
-      onComplete: () => {
         this.tweens.add({
-          targets: [title, subtitle],
-          alpha: 1,
-          duration: 1000,
-          ease: 'Power2',
-          onComplete: () => {
-            buttons.forEach((btn, i) => {
-              this.tweens.add({
-                targets: [btn.bg, btn.text],
+            targets: blackOverlay,
+            alpha: 0,
+            duration: 2000,
+            ease: 'Power2',
+            onComplete: () => {
+            this.tweens.add({
+                targets: logo,
                 alpha: 1,
-                duration: 400,
-                delay: i * 150,
-                ease: 'Power2'
-              })
+                duration: 1000,
+                ease: 'Power2',
+                onComplete: () => {
+                this.tweens.add({
+                    targets: [title, subtitle],
+                    alpha: 1,
+                    duration: 1000,
+                    ease: 'Power2',
+                    onComplete: () => {
+                    buttons.forEach((btn, i) => {
+                    this.tweens.add({
+                        targets: [btn.bg, btn.text],
+                        alpha: 1,
+                        duration: 400,
+                        delay: i * 150,
+                        ease: 'Power2'
+                    })
+                })
+                }
             })
-          }
+            }
         })
-      }
+        }
     })
-  }
-})
+    }
 
-}
+        //LAYER 3: Ilifa Pattern
+        createParticles() {
+        const W = this.scale.width
+        const H = this.scale.height
 
+        // Gold rising sparks
+        for (let i = 0; i < 40; i++) {
+        const x = Phaser.Math.Between(0, W)
+        const y = Phaser.Math.Between(0, H)
+        const size = Phaser.Math.FloatBetween(1, 3.5)
+        const alpha = Phaser.Math.FloatBetween(0.2, 0.8)
+        const duration = Phaser.Math.Between(4000, 10000)
+        const dot = this.add.circle(x, y, size, 0xf5a623, alpha)
+
+        this.tweens.add({
+            targets: dot,
+            y: y - Phaser.Math.Between(150, 500),
+            alpha: 0,
+            duration,
+            repeat: -1,
+            delay: Phaser.Math.Between(0, 6000),
+            onRepeat: () => {
+            dot.x = Phaser.Math.Between(0, W)
+            dot.y = H + 10
+            dot.alpha = alpha
+            }
+        })
+    }
+
+        // Purple ancestral wisps
+        for (let i = 0; i < 15; i++) {
+        const x = Phaser.Math.Between(0, W)
+        const y = Phaser.Math.Between(H * 0.5, H)
+        const size = Phaser.Math.FloatBetween(3, 7)
+        const alpha = Phaser.Math.FloatBetween(0.1, 0.35)
+        const duration = Phaser.Math.Between(8000, 16000)
+        const wisp = this.add.circle(x, y, size, 0x9b59b6, alpha)
+
+        this.tweens.add({
+            targets: wisp,
+            y: y - Phaser.Math.Between(300, 700),
+            x: x + Phaser.Math.Between(-80, 80),
+            alpha: 0,
+            duration,
+            repeat: -1,
+            delay: Phaser.Math.Between(0, 8000),
+            onRepeat: () => {
+            wisp.x = Phaser.Math.Between(0, W)
+            wisp.y = H + 10
+            wisp.alpha = alpha
+            }
+        })
+        }
+    }
 }

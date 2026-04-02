@@ -15,8 +15,7 @@ const config={
     physics:{
         default:"arcade",
         arcade:{
-            gravity:{y:speedDown},
-            debug:true
+            gravity:{y:speedDown}
         }
     },
     scene:[MainMenuScene,GameScene]
