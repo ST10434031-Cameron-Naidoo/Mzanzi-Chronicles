@@ -8,10 +8,18 @@ export default class MainMenuScene extends Phaser.Scene{
     preload(){
         this.load.image('menu_background', '/assets/menu_background.png')
         this.load.image('Ilifa', '/assets/ilifa.png')
+        this.load.audio('menu_music', 'assets/menu_music.mp3');
     }
 
     create(){
 
+        //LAYER 0: Background music
+        this.music = this.sound.add('menu_music', {
+        volume: 0.5,
+        loop: true
+        });
+
+        this.music.play();
         //LAYER 1: Base dark background
         //Load Cinzel font
         const link=document.createElement('link')
@@ -111,6 +119,7 @@ export default class MainMenuScene extends Phaser.Scene{
             zone.on('pointerdown', () => {
                 switch (label) {
                 case 'PLAY':
+                    this.music.stop();
                     this.cameras.main.fadeOut(800, 0, 0, 0)
                     this.cameras.main.once('camerafadeoutcomplete', () => {
                     this.scene.start('GameScene')
@@ -180,9 +189,9 @@ export default class MainMenuScene extends Phaser.Scene{
         })
         }
     })
-    }
+}
 
-        //LAYER 3: Ilifa Pattern
+        //LAYER 8: Ilifa Pattern
         createParticles() {
         const W = this.scale.width
         const H = this.scale.height
