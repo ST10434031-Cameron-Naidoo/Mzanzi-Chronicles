@@ -2,6 +2,7 @@ import './style.css'
 import Phaser from 'phaser'
 import GameScene from './scenes/GameScene'
 import MainMenuScene from './scenes/MainMenuScene'
+import IntroScene from './scenes/IntroScene'
 
 const speedDown=1500
 
@@ -18,7 +19,7 @@ const config={
             gravity:{y:speedDown}
         }
     },
-    scene:[MainMenuScene,GameScene]
+    scene:[MainMenuScene,IntroScene,GameScene]
 }
 
 const game=new Phaser.Game(config)

@@ -119,10 +119,10 @@ export default class MainMenuScene extends Phaser.Scene{
             zone.on('pointerdown', () => {
                 switch (label) {
                 case 'PLAY':
-                    this.music.stop();
+                    this.music.stop()
                     this.cameras.main.fadeOut(800, 0, 0, 0)
                     this.cameras.main.once('camerafadeoutcomplete', () => {
-                    this.scene.start('GameScene')
+                    this.scene.start('IntroScene')
                     })
                 break
                 case 'SETTINGS':
