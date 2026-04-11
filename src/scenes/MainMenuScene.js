@@ -9,6 +9,7 @@ export default class MainMenuScene extends Phaser.Scene{
         this.load.image('menu_background', '/assets/menu_background.png')
         this.load.image('Ilifa', '/assets/ilifa.png')
         this.load.audio('menu_music', 'assets/menu_music.mp3');
+        this.load.audio('btn_click','/assets/btn_click.mp3')
     }
 
     create(){
@@ -120,16 +121,20 @@ export default class MainMenuScene extends Phaser.Scene{
                 switch (label) {
                 case 'PLAY':
                     this.music.stop()
+                    this.sound.play('btn_click', { volume: 0.6 })
                     this.cameras.main.fadeOut(800, 0, 0, 0)
                     this.cameras.main.once('camerafadeoutcomplete', () => {
                     this.scene.start('IntroScene')
                     })
                 break
                 case 'SETTINGS':
+                    this.sound.play('btn_click', { volume: 0.6 })
                     break
                 case 'CREDITS':
+                    this.sound.play('btn_click', { volume: 0.6 })
                     break
                 case 'QUIT':
+                    this.sound.play('btn_click', { volume: 0.6 })
                     window.close()
                     break
                 }
@@ -140,7 +145,7 @@ export default class MainMenuScene extends Phaser.Scene{
         })
 
 
-         // Fade in
+        // Fade in
         const blackOverlay = this.add.rectangle(0, 0, window.innerWidth, window.innerHeight, 0x000000)
         .setOrigin(0, 0)
         .setAlpha(1)
